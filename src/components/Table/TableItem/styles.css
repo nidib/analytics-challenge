@@ -1,0 +1,20 @@
+tr.table-item:nth-of-type(even) {
+  background-color: var(--grey-dark);
+}
+
+tr td {
+  padding: 10px 5px;
+}
+
+.checkbox, .arrow-right {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--grey-darker);
+  cursor: pointer;
+  margin: 0 auto;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 50%;
+  transition: background 200ms ease;
+}

@@ -1,0 +1,15 @@
+.checkbox.checked {
+  background-color: var(--grey-darker) !important;
+  background-image: url(/check.svg) !important;
+}
+
+#checkbox-btn {
+  display: block;
+  background-color: transparent;
+  font-family: monospace;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: transparent;
+}

@@ -1,0 +1,25 @@
+.stock-table {
+  font-size: 15px;
+  width: 100%;
+  border-collapse: collapse;
+  
+  position: relative;
+}
+
+@media (max-width: 580px) {
+  .stock-table {
+    font-size: 13px;
+  }
+}
+
+.stock-table, .stock-table tr {
+  border: 1px solid var(--grey-lighter);
+}
+
+.limiter {
+  max-height: 500px;
+  margin-top: 30px;
+  overflow-y: scroll;
+  border-top: 1px solid var(--grey-lighter);
+  border-bottom: 1px solid var(--grey-lighter);
+}
