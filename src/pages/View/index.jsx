@@ -16,9 +16,7 @@ const View = () => {
   const { symbol } = params;
 
   useEffect(() => {
-    api.get(`v3/income-statement/${symbol}?apikey=50685ed6422c4ba4c0ff0875c2b76097`).then(((response) => {
-      setCompanyToBeViewed(response.data);
-    }));
+    api.get(`v3/income-statement/${symbol}?apikey=50685ed6422c4ba4c0ff0875c2b76097`).then(((response) => setCompanyToBeViewed(response.data)));
   }, []);
 
   function getCompanyName(stockList) {
