@@ -22,7 +22,7 @@ const View = () => {
   }, []);
 
   function getCompanyName(stockList) {
-    const stockObjectFiltered = stockList.filter((stockItem) => stockItem.symbol === symbol)[0];
+    const [stockObjectFiltered] = stockList.filter((stockItem) => stockItem.symbol === symbol);
     return (stockObjectFiltered) ? stockObjectFiltered.name : undefined;
   }
   const companyName = getCompanyName(stocks);
