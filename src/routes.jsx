@@ -2,13 +2,13 @@ import React from 'react';
 import { Route, BrowserRouter } from 'react-router-dom';
 
 import Home from './pages/Home';
-import Chart from './pages/Chart';
+import View from './pages/View';
 
 const Routes = () => {
   return (
     <BrowserRouter>
       <Route component={Home} path="/" exact />
-      <Route component={Chart} path="/chart" />
+      <Route component={View} path="/view/" />
     </BrowserRouter>
   );
 };
