@@ -24,6 +24,7 @@
     "rules": {
       "arrow-body-style": "off",
       "no-console": "off",
-      "max-len": "off"
+      "max-len": "off",
+      "no-restricted-globals": "off"
     }
 }
