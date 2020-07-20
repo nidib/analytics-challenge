@@ -6,7 +6,7 @@ function handleCompareClick(e) {
   // To do: Use elements's parent tr's id to load next page (Comparing selected ones)
   e.preventDefault();
   document.querySelectorAll('.checkbox.checked').forEach((element) => {
-    console.log(element.closest('tr'));
+    // console.log(element.closest('tr'));
   });
 }
 
