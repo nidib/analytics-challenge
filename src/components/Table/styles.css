@@ -1,3 +1,79 @@
+.search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (max-width: 580px) {
+  .search-bar {
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .search-bar .search-box {
+    margin-bottom: 15px;
+    width: 100%;
+    margin-right: 0 !important;
+  }
+}
+
+.search-bar input, .search-bar button {
+  border: none;
+  height: 40px;
+  outline: none;
+  font-size: 15px;
+}
+
+.search-bar button.disabled {
+  opacity: .4;
+  pointer-events: none;
+}
+
+.search-bar .search-box {
+  flex-grow: 1;
+  margin-right: 60px;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  border-bottom: 1px solid var(--grey-lighter)
+}
+
+
+.search-bar .search-box .magnifier {
+  margin-right: 20px;
+  font-size: 12px;
+  width: 20px;
+  height: 20px;
+  opacity: .8;
+  background-image: url(/magnifier.svg);
+  background-repeat: no-repeat;
+  background-size: 80%;
+  background-position: center center;
+}
+
+.search-bar .search-box input::placeholder {
+  color: var(--grey-darker);
+  opacity: .8;
+}
+
+.search-bar .search-box input {
+  color: var(--grey-darker);
+  opacity: 1;
+  flex-grow: 1;
+  font-size: 16px;
+}
+
+.search-bar button {
+  background-color: var(--grey-darker);
+  color: white;
+  text-align: center;
+  width: 170px;
+  border-radius: 5px;
+}
+
+
+
+
 .stock-table {
   font-size: 15px;
   width: 100%;
@@ -22,4 +98,37 @@
   overflow-y: scroll;
   border-top: 1px solid var(--grey-lighter);
   border-bottom: 1px solid var(--grey-lighter);
+}
+
+ul#selected {
+  display: flex;
+  list-style: none;
+  padding: 30px 0;
+}
+
+ul#selected li {
+  padding: 5px 10px;
+  border: 1px solid var(--grey-darker);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: monospace;
+  cursor: pointer;
+}
+
+ul#selected li.remove-selected::after {
+  content: '-';
+  width: 15px;
+  height: 15px;
+  text-align: center;
+  margin-left: 5px;
+  color: var(--grey-darker);
+  font-family: monospace;
+  display: inline-block;
+}
+
+ul#selected li:not(:last-of-type) {
+  margin-right: 10px;
 }
