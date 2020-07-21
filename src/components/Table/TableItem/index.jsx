@@ -14,7 +14,7 @@ const TableItem = ({ symbol, name, price }) => {
       </td>
       <td>{symbol}</td>
       <td>{name}</td>
-      <td>{`$${price}`}</td>
+      <td>{`$${price.toFixed(2)}`}</td>
       <td>
         <ArrowRight symbol={symbol} />
       </td>
