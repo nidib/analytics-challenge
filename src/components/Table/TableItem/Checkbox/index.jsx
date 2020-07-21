@@ -2,25 +2,25 @@ import React from 'react';
 
 import './styles.css';
 
-const listOfSelected = document.querySelector('ul#selected');
-
 function handleCheckboxClick({ target }) {
+  const selectedStocks = document.querySelector('ul#selected');
+
   target.classList.add('checked');
   setTimeout(() => {
     target.classList.remove('checked');
   }, 500);
 
-  const elementToBeSelected = document.createElement('li');
-  elementToBeSelected.classList.add('remove-selected');
-  elementToBeSelected.title = 'Remove item';
-  elementToBeSelected.id = target.parentElement.parentElement.id;
-  elementToBeSelected.innerText = target.parentElement.parentElement.id;
-  elementToBeSelected.addEventListener('click', (e) => {
+  const selectedStockToBeAdded = document.createElement('li');
+  selectedStockToBeAdded.classList.add('remove-selected');
+  selectedStockToBeAdded.title = 'Remove item';
+  selectedStockToBeAdded.addEventListener('click', (e) => {
     e.target.parentElement.removeChild(e.target);
   });
+  selectedStockToBeAdded.id = target.parentElement.parentElement.id;
+  selectedStockToBeAdded.innerText = target.parentElement.parentElement.id;
 
-  if (!Array.from(listOfSelected.childNodes).some((child) => child.id === target.parentElement.parentElement.id) && Array.from(listOfSelected.childNodes).length < 3) {
-    listOfSelected.appendChild(elementToBeSelected);
+  if (!Array.from(selectedStocks.childNodes).some((child) => child.id === target.parentElement.parentElement.id) && Array.from(selectedStocks.childNodes).length < 3) {
+    selectedStocks.appendChild(selectedStockToBeAdded);
   }
 }
 
