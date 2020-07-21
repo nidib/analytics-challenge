@@ -50,6 +50,9 @@ This challenge was easily one of the most `challenging` I've already done. *But 
 <br/>
 Well... I've dedicated myself with the programming world for almost 2 years, and since I tried web dev for the first time, I've felt a passion for it.<br/>
 I've done a few website projects using pure `html` `css` and `javascript`. Sometimes using `pre-processors` such as `sass` and `typescript`, but essentially they are all the same.<br/>
+<br/>
 When this project *kind of required* to be done using ReactJS, a technology I've never really dealt with, it really scared me. Now that the project is done, or at least its main idea is, my web browsers are in pain with such many history indexed from googling tons of questions and documentation from the used APIs. I had only set one requirement for this project. Not to google solutions, and deliver whatever my limitations took me to.<br/>
+<br/>
 Experienced React devs can easily spot those limitations, such as components that could become their own, and use global states. But I did't really understand that yet. So I've just put them all in the same place to have their states shared, and used vanilla JS DOM manipulations when I found myself on those situations.<br/>
+<br/>
 With that said, I can easily say that I am very proud of what I've come up with. I also hope that in a near future, those `improvements` will be all checked and it'll all be free of those nasty bugs. :)
