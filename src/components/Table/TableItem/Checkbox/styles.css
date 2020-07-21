@@ -1,6 +1,5 @@
 .checkbox.checked {
-  background-color: var(--grey-darker) !important;
-  background-image: url(/check.svg) !important;
+  animation: test 400ms ease;
 }
 
 #checkbox-btn {
@@ -12,4 +11,20 @@
   justify-content: center;
   align-items: center;
   color: transparent;
+}
+
+@keyframes test {
+  0% {
+    background-color: inherit;
+  }
+
+  50% {
+    background-color: var(--grey-darker);
+    background-image: url(/check.svg) !important;
+
+  }
+
+  100% {
+    background-color: inherit;
+  }
 }
