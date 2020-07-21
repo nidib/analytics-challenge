@@ -5,6 +5,8 @@ import propTypes from 'prop-types';
 
 import Loading from '../../Loading';
 
+import { barColors, lineColors, revenueEbitdaChartOptions } from '../commonChartData';
+
 import './styles.css';
 
 import {
@@ -12,28 +14,42 @@ import {
   getRevenues,
   getRevenueRate,
   defineNumberOfYears,
-} from '../chartFunctions';
+} from '../commonChartFunctions';
 
-function generateData(companyStock, numberOfYears) {
+function generateData(companiesStocks, numberOfYears) {
+  const datasets = [];
+  companiesStocks.forEach((companyStock, index) => {
+    const datasetRevenueGrowth = {
+      label: `Crescimento da Receita (${companyStock.symbol})`,
+      yAxisID: 'right-y-axis',
+      type: 'line',
+      data: getRevenueRate(companyStock.financials, numberOfYears).reverse(),
+      backgroundColor: 'rgba(0,0,0,0)',
+      borderColor: lineColors[index],
+    };
+    datasets.push(datasetRevenueGrowth);
+  });
+
+  companiesStocks.forEach((companyStock, index) => {
+    const datasetRevenue = {
+      label: `Receita (${companyStock.symbol})`,
+      yAxisID: 'left-y-axis',
+      type: 'bar',
+      data: getRevenues(companyStock.financials, numberOfYears).reverse(),
+      backgroundColor: barColors[index],
+    };
+    datasets.push(datasetRevenue);
+  });
+
+  let yearLabels = [];
+  companiesStocks.forEach((companyStock) => {
+    const currentLabels = getYears(companyStock.financials);
+    if (currentLabels > yearLabels) yearLabels = currentLabels;
+  });
+
   return {
-    datasets: [
-      {
-        label: 'Crescimento da Receita',
-        yAxisID: 'right-y-axis',
-        type: 'line',
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderColor: 'rgba(67,67,67,1)',
-        data: getRevenueRate(companyStock, numberOfYears).reverse(),
-      },
-      {
-        label: 'Receita',
-        yAxisID: 'left-y-axis',
-        type: 'bar',
-        data: getRevenues(companyStock, numberOfYears).reverse(),
-        backgroundColor: 'rgba(126,182,234,1)',
-      },
-    ],
-    labels: getYears(companyStock, numberOfYears).reverse(),
+    datasets,
+    labels: yearLabels.reverse(),
   };
 }
 
@@ -42,35 +58,17 @@ function provideKey() {
 }
 
 const RevenueChart = ({ companyStock }) => {
-  const numberOfYears = defineNumberOfYears(companyStock);
+  const numberOfYears = defineNumberOfYears();
   if ((companyStock).length > 0) {
     return (
       <>
         <h1 className="chart-title">Receita</h1>
         <Bar
           data={generateData(companyStock, numberOfYears)}
-          height={100}
+          height={180}
           datasetKeyProvider={provideKey}
           options={{
-            tooltips: {
-              callbacks: {
-                label(tooltipItem, mainData) {
-                  if (tooltipItem.datasetIndex === 1) {
-                    return `${mainData.datasets[tooltipItem.datasetIndex].label}: ${numeral(tooltipItem.value).format('$ 0,0')}`;
-                  }
-                  return `${mainData.datasets[tooltipItem.datasetIndex].label}: ${tooltipItem.value}%`;
-                },
-              },
-            },
-            spanGaps: true,
-            legend: {
-              position: 'bottom',
-            },
-            title: {
-              display: true,
-              text: 'Demonstrações de resultados anuais',
-              fontStyle: 'normal',
-            },
+            ...revenueEbitdaChartOptions,
             scales: {
               xAxes: [{
                 gridLines: {

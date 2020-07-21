@@ -5,64 +5,68 @@ import propTypes from 'prop-types';
 
 import Loading from '../../Loading';
 
+import { barColors, lineColors, revenueEbitdaChartOptions } from '../commonChartData';
+
 import {
   getYears,
   getEbitdas,
   getEbitdaRatios,
   defineNumberOfYears,
-} from '../chartFunctions';
+} from '../commonChartFunctions';
 
-function generateData(companyStock, numberOfYears) {
+function generateData(companiesStocks, numberOfYears) {
+  const datasets = [];
+  companiesStocks.forEach((companyStock, index) => {
+    const datasetRevenueGrowth = {
+      label: `Margem EBITDA (${companyStock.symbol})`,
+      yAxisID: 'right-y-axis',
+      type: 'line',
+      data: getEbitdaRatios(companyStock.financials, numberOfYears).reverse(),
+      backgroundColor: 'rgba(0,0,0,0)',
+      borderColor: `${lineColors[index]}`,
+    };
+    datasets.push(datasetRevenueGrowth);
+  });
+
+  companiesStocks.forEach((companyStock, index) => {
+    const datasetRevenue = {
+      label: `EBITDA (${companyStock.symbol})`,
+      yAxisID: 'left-y-axis',
+      type: 'bar',
+      data: getEbitdas(companyStock.financials, numberOfYears).reverse(),
+      backgroundColor: `${barColors[index]}`,
+    };
+    datasets.push(datasetRevenue);
+  });
+
+  let yearLabels = [];
+  companiesStocks.forEach((companyStock) => {
+    const currentLabels = getYears(companyStock.financials);
+    if (currentLabels > yearLabels) yearLabels = currentLabels;
+  });
+
   return {
-    datasets: [
-      {
-        label: 'Margem EBITDA',
-        yAxisID: 'right-y-axis',
-        type: 'line',
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderColor: 'rgba(67,67,67,1)',
-        data: getEbitdaRatios(companyStock, numberOfYears).reverse(),
-      },
-      {
-        label: 'EBITDA',
-        yAxisID: 'left-y-axis',
-        type: 'bar',
-        data: getEbitdas(companyStock, numberOfYears).reverse(),
-        backgroundColor: 'rgba(246,160,74,1)',
-      },
-    ],
-    labels: getYears(companyStock, numberOfYears).reverse(),
+    datasets,
+    labels: yearLabels.reverse(),
   };
 }
 
+function provideKey() {
+  return Math.random();
+}
+
 const EbitdaChart = ({ companyStock }) => {
-  const numberOfYears = defineNumberOfYears(companyStock);
+  const numberOfYears = defineNumberOfYears();
   if ((companyStock).length > 0) {
     return (
       <>
         <h1 className="chart-title">EBITDA</h1>
         <Bar
           data={generateData(companyStock, numberOfYears)}
-          height={100}
+          height={180}
+          datasetKeyProvider={provideKey}
           options={{
-            tooltips: {
-              callbacks: {
-                label(tooltipItem, mainData) {
-                  if (tooltipItem.datasetIndex === 1) {
-                    return `${mainData.datasets[tooltipItem.datasetIndex].label}: ${numeral(tooltipItem.value).format('$ 0,0')}`;
-                  }
-                  return `${mainData.datasets[tooltipItem.datasetIndex].label}: ${tooltipItem.value}%`;
-                },
-              },
-            },
-            legend: {
-              position: 'bottom',
-            },
-            title: {
-              display: true,
-              text: 'Demonstrações de resultados anuais',
-              fontStyle: 'normal',
-            },
+            ...revenueEbitdaChartOptions,
             scales: {
               xAxes: [{
                 gridLines: {
@@ -71,6 +75,9 @@ const EbitdaChart = ({ companyStock }) => {
               }],
               yAxes: [
                 {
+                  gridLines: {
+                    drawBorder: false,
+                  },
                   id: 'left-y-axis',
                   type: 'linear',
                   position: 'left',

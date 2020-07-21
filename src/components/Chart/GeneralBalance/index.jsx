@@ -6,61 +6,88 @@ import propTypes from 'prop-types';
 import Loading from '../../Loading';
 
 import {
+  lineColors,
+  pointStyles,
+  chartHeight,
+  commonToAllCharts,
+} from '../commonChartData';
+
+import {
   getYears,
   getRevenues,
   getEbitdas,
   getOperatingExpenses,
   getConsolidatedIncome,
   defineNumberOfYears,
-} from '../chartFunctions';
+} from '../commonChartFunctions';
 
-function generateData(companyStock, numberOfYears) {
+function generateData(companiesStocks, numberOfYears) {
+  const datasets = [];
+  companiesStocks.forEach((companyStock, index) => {
+    const datasetRevenue = {
+      customID: 0,
+      label: `Receita (${companyStock.symbol})`,
+      type: 'line',
+      pointStyle: 'trianglge',
+      backgroundColor: 'rgba(0,0,0,0)',
+      borderColor: `${lineColors[index]}`,
+      data: getRevenues(companyStock.financials, numberOfYears).reverse(),
+    };
+    const datasetEbitdas = {
+      customID: 1,
+      label: `EBITDA (${companyStock.symbol})`,
+      type: 'line',
+      backgroundColor: 'rgba(0,0,0,0)',
+      borderColor: `${lineColors[index]}`,
+      data: getEbitdas(companyStock.financials, numberOfYears).reverse(),
+    };
+    const datasetOperatingExpenses = {
+      customID: 2,
+      label: `Despesas Operacionais (${companyStock.symbol})`,
+      type: 'line',
+      backgroundColor: 'rgba(0,0,0,0)',
+      borderColor: `${lineColors[index]}`,
+      data: getOperatingExpenses(companyStock.financials, numberOfYears).reverse(),
+    };
+    const datasetConsolidatedIncome = {
+      customID: 3,
+      label: `Renda Consolidada (${companyStock.symbol})`,
+      type: 'line',
+      backgroundColor: 'rgba(0,0,0,0)',
+      borderColor: `${lineColors[index]}`,
+      data: getConsolidatedIncome(companyStock.financials, numberOfYears).reverse(),
+    };
+    datasets.push(datasetRevenue, datasetEbitdas, datasetOperatingExpenses, datasetConsolidatedIncome);
+  });
+
+  let yearLabels = [];
+  companiesStocks.forEach((companyStock) => {
+    const currentLabels = getYears(companyStock.financials);
+    if (currentLabels > yearLabels) yearLabels = currentLabels;
+  });
+
   return {
-    datasets: [
-      {
-        label: 'Receita',
-        type: 'line',
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderColor: 'rgba(126,182,234,1)',
-        yAxisID: 'left-y-axis',
-        data: getRevenues(companyStock, numberOfYears).reverse(),
-      },
-      {
-        label: 'EBITDA',
-        type: 'line',
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderColor: 'rgba(246,160,74,1)',
-        data: getEbitdas(companyStock, numberOfYears).reverse(),
-      },
-      {
-        label: 'Despesas Operacionais',
-        type: 'line',
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderColor: 'rgba(67,67,67,1)',
-        data: getOperatingExpenses(companyStock, numberOfYears).reverse(),
-      },
-      {
-        label: 'Consolidated Income',
-        type: 'line',
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderColor: 'rgba(138,43,226, 1)',
-        data: getConsolidatedIncome(companyStock, numberOfYears).reverse(),
-      },
-    ],
-    labels: getYears(companyStock, numberOfYears).reverse(),
+    datasets,
+    labels: yearLabels.reverse(),
   };
 }
 
+function provideKey() {
+  return Math.random();
+}
+
 const GeneralBalance = ({ companyStock }) => {
-  const numberOfYears = defineNumberOfYears(companyStock);
+  const numberOfYears = defineNumberOfYears();
   if ((companyStock).length > 0) {
     return (
       <>
         <h1 className="chart-title">Balanço Geral</h1>
         <Bar
           data={generateData(companyStock, numberOfYears)}
-          height={100}
+          height={chartHeight}
+          datasetKeyProvider={provideKey}
           options={{
+            ...commonToAllCharts,
             tooltips: {
               callbacks: {
                 label(tooltipItem, mainData) {
@@ -72,15 +99,20 @@ const GeneralBalance = ({ companyStock }) => {
               line: {
                 tension: 0,
               },
+              point: {
+                radius: 2,
+                borderWidth: 4,
+                pointStyle(context) {
+                  return pointStyles[context.dataset.customID];
+                },
+              },
             },
-            spanGaps: true,
             legend: {
+              labels: {
+                usePointStyle: true,
+              },
               position: 'bottom',
-            },
-            title: {
-              display: true,
-              text: 'Demonstrações de resultados anuais',
-              fontStyle: 'normal',
+              fullWidth: false,
             },
             scales: {
               xAxes: [{
