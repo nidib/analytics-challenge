@@ -6,7 +6,6 @@ import './styles.css';
 
 const ArrowRight = ({ symbol }) => {
   return (
-    // Replace with `Link`
     <Link to={`/view/?symbol=${symbol}`}>
       <div className="arrow-right" />
     </Link>
