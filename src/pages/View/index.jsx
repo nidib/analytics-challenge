@@ -12,35 +12,50 @@ import Footer from '../../components/Footer';
 import api from '../../services/api';
 
 const View = () => {
-  const [companyToBeViewed, setCompanyToBeViewed] = useState([]);
-  const [companyName, setCompanyName] = useState(undefined);
-  const [companyLogo, setCompanyLogo] = useState('');
+  const [companiesToBeViewed, setCompaniesToBeViewed] = useState([]);
+  const [companiesProfiles, setCompaniesProfiles] = useState([]);
+  const [loading, setLoading] = useState(false);
 
+  // Get params from url using keyword `symbol`
   const params = queryString.parse(window.location.search);
-  const { symbol } = params;
+  let symbols = params.symbol;
+  symbols = symbols.split(',').length === 1 ? `${symbols},` : symbols.split(',').join();
 
   useEffect(() => {
-    api.get(`v3/financials/income-statement/${symbol}?apikey=109b3e1e77138ebe6cf237168a297c88`).then(((response) => {
-      setCompanyToBeViewed(response.data.financials);
-    }));
-    api.get(`v3/profile/${symbol}?apikey=109b3e1e77138ebe6cf237168a297c88`).then(((response) => {
-      setCompanyName(response.data[0].companyName);
-      setCompanyLogo(response.data[0].image);
-    }));
+    // Pulls charts data from API
+    api.get(`financials/income-statement/${symbols}?apikey=${process.env.REACT_APP_API_KEY}`)
+      .then(((response) => {
+        if (!(response.data['Error Message'])) {
+          setCompaniesToBeViewed(response.data.financialStatementList);
+          setLoading(false);
+        } else {
+          setCompaniesToBeViewed([]);
+          setLoading(true);
+        }
+      }));
+
+    // Pulls companies data from API
+    api.get(`profile/${symbols}?apikey=${process.env.REACT_APP_API_KEY}`)
+      .then(((response) => {
+        if ((response.data)) {
+          setCompaniesProfiles(response.data);
+          setLoading(false);
+        } else {
+          setLoading(true);
+        }
+      }));
   }, []);
 
-  if (!(companyName && companyToBeViewed)) {
-    return <Loading />;
-  }
+  if (loading) return <Loading />;
 
   return (
     <>
       <Header />
       <main id="charts">
-        <CompanyTitle companyName={companyName} companySymbol={symbol} companyLogo={companyLogo} />
-        <RevenueChart companyStock={companyToBeViewed} />
-        <EbitdaChart companyStock={companyToBeViewed} />
-        <GeneralBalance companyStock={companyToBeViewed} />
+        <CompanyTitle companiesProfiles={companiesProfiles} />
+        <RevenueChart companyStock={companiesToBeViewed} />
+        <EbitdaChart companyStock={companiesToBeViewed} />
+        <GeneralBalance companyStock={companiesToBeViewed} />
       </main>
       <Footer />
     </>
