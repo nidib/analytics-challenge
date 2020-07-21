@@ -1,3 +1,31 @@
 footer {
   padding: 60px 0;
 }
+
+footer a {
+  color: var(--grey-darker);
+  text-decoration: none;
+  border-bottom: 2px solid var(--grey-lighter);
+  transition: background 300ms ease;
+}
+
+footer a:hover {
+  background-color: var(--grey-lighter);
+}
+
+footer .challenged-by, footer .developed-by {
+  display: flex;
+}
+
+footer .challenged-by {
+  margin-bottom: 7px;
+}
+
+footer .developed-by {
+  margin-bottom: 25px;
+}
+
+footer .used-apis ul li {
+  display: flex;
+  margin-bottom: 7px;
+}
