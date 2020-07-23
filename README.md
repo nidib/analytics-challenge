@@ -9,16 +9,16 @@ A React app that displays stock prices and its charts.
 ### Set it up
 1. `$ git clone` it into your chosen directory
 2. `$ cd` into it
-3. `$ yarn install` or `npm install`
+3. `$ yarn install` or `$ npm install`
 4. Edit `.env_sample` and replace `YOUR_API_KEY_HERE` with your API key.
 	- You can get a free one [here](https://financialmodelingprep.com/developer/docs/pricing/)
 5. Rename the `.env_sample` file with `.env`
 
 ### Run it
-* `$ yarn start` or `npm run start`
+* `$ yarn start` or `$ npm run start`
 
 ### Build it
-* `yarn build` or `npm run build`
+* `$ yarn build` or `$ npm run build`
 
 
 
