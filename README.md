@@ -31,8 +31,8 @@ A React app that displays stock prices and its charts.
 - [ ] Make table headers clickable to order the search based on the stock list shown
 - [ ] Create filters (Price range), (Exchange)
 - React API
-	- [ ] Refactor some elements that need global state to share with others
-	- [ ] Implement `useState` more on certain cases
+	- [x] Refactor some elements that need global state to share with others
+	- [x] Implement `useState` more on certain cases
 
 ### Known issues
 - Can't compare more than 3 companies, since the API only allows it up to 3
