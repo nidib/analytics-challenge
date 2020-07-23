@@ -9,7 +9,7 @@ function handleCheckBoxClick(e, selected, set) {
   }
 }
 
-const Checkbox = () => {
+const Checkbox = ({ selectedStocks, setSelectedStocks }) => {
   return (
     <button
       id="checkbox-btn"
