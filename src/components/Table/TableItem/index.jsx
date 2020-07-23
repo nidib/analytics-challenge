@@ -6,7 +6,13 @@ import ArrowRight from './ArrowRight';
 
 import './styles.css';
 
-const TableItem = ({ symbol, name, price, selectedStocks, setSelectedStocks }) => {
+const TableItem = ({
+  symbol,
+  name,
+  price,
+  selectedStocks,
+  setSelectedStocks,
+}) => {
   return (
     <tr id={symbol} className="table-item">
       <td>
@@ -26,6 +32,8 @@ TableItem.propTypes = {
   symbol: propTypes.string.isRequired,
   name: propTypes.string.isRequired,
   price: propTypes.number.isRequired,
+  selectedStocks: propTypes.arrayOf(propTypes.string).isRequired,
+  setSelectedStocks: propTypes.func.isRequired,
 };
 
 export default TableItem;

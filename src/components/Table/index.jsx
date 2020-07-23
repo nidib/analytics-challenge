@@ -106,11 +106,15 @@ const Table = () => {
         {
           selectedStocks.map((selectedStock) => {
             return (
-              <li
-                title="Remove from selection"
-                id={selectedStock}
-                key={selectedStock}
-                onClick={handleSelectedStockClick}>{selectedStock}
+              <li key={selectedStock}>
+                <button
+                  type="button"
+                  title="Remove from selection"
+                  id={selectedStock}
+                  onClick={handleSelectedStockClick}
+                >
+                  {selectedStock}
+                </button>
               </li>
             );
           })

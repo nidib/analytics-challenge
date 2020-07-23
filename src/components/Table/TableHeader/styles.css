@@ -9,7 +9,6 @@ thead tr th {
   font-weight: 500;
   padding: 15px 0;
   text-align-last: left;
-
 }
 
 .table-header th:first-of-type, .table-header th:last-of-type {
