@@ -14,7 +14,7 @@ const Table = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [filteredStocks, setFilteredStocks] = useState([]);
-  const [selectedStocks, setSelectedStocks] = useState(['AAPL', 'GOOGL', 'FB']);
+  const [selectedStocks, setSelectedStocks] = useState([]);
 
   function handleSearch(e) {
     const inputSearch = e.target.value.trim();
