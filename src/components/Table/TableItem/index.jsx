@@ -6,11 +6,11 @@ import ArrowRight from './ArrowRight';
 
 import './styles.css';
 
-const TableItem = ({ symbol, name, price }) => {
+const TableItem = ({ symbol, name, price, selectedStocks, setSelectedStocks }) => {
   return (
     <tr id={symbol} className="table-item">
       <td>
-        <Checkbox />
+        <Checkbox selectedStocks={selectedStocks} setSelectedStocks={setSelectedStocks} />
       </td>
       <td>{symbol}</td>
       <td>{name}</td>

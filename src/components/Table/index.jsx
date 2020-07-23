@@ -14,9 +14,9 @@ const Table = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [filteredStocks, setFilteredStocks] = useState([]);
+  const [selectedStocks, setSelectedStocks] = useState(['AAPL', 'GOOGL', 'FB']);
 
   function handleSearch(e) {
-    console.log(e.target.value);
     const inputSearch = e.target.value.trim();
     setSearch(inputSearch);
   }
@@ -54,7 +54,17 @@ const Table = () => {
         }
       });
   }, []);
-  console.log(stockList);
+
+  function handleSelectedStockClick(e) {
+    // Removes clicked selected Stock
+    const copyOfSelected = [...selectedStocks];
+    const idOfItemToBeRemoved = e.target.id;
+    const indexOfItemToBeRemoved = copyOfSelected.indexOf(idOfItemToBeRemoved);
+    if (indexOfItemToBeRemoved > -1) {
+      copyOfSelected.splice(indexOfItemToBeRemoved, 1);
+    }
+    setSelectedStocks(copyOfSelected);
+  }
 
   useEffect(() => {
     setFilteredStocks(stockList.filter(({ symbol, name }) => {
@@ -87,6 +97,8 @@ const Table = () => {
                     symbol={symbol}
                     name={name}
                     price={price}
+                    selectedStocks={selectedStocks}
+                    setSelectedStocks={setSelectedStocks}
                   />
                 );
               })
@@ -94,7 +106,20 @@ const Table = () => {
           </tbody>
         </table>
       </div>
-      <ul id="selected" />
+      <ul id="selected">
+        {
+          selectedStocks.map((selectedStock) => {
+            return (
+              <li
+                title="Remove from selection"
+                id={selectedStock}
+                key={selectedStock}
+                onClick={handleSelectedStockClick}>{selectedStock}
+              </li>
+            );
+          })
+        }
+      </ul>
     </>
   );
 };
