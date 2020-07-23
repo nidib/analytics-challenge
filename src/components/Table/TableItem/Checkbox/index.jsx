@@ -3,7 +3,12 @@ import React from 'react';
 import './styles.css';
 
 function handleCheckBoxClick(e, selected, set) {
-  // Adds clicked selected Stock
+  const elmnt = e.target;
+  elmnt.classList.add('checked');
+  setTimeout(() => {
+    elmnt.classList.remove('checked');
+  }, 500);
+
   if (!(selected.includes(e.target.parentElement.parentElement.id)) && selected.length < 3) {
     set([...selected, e.target.parentElement.parentElement.id]);
   }
