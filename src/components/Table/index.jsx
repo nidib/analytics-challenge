@@ -25,12 +25,8 @@ const Table = () => {
     const history = useHistory();
 
     function handleCompareButtonClick(e) {
-      const arr = [];
-      (Array.from(document.querySelector('ul#selected').childNodes)).forEach((item) => {
-        arr.push(item.id);
-      });
-      if (arr.length > 0) {
-        history.push(`/view/?symbol=${arr.join()}`);
+      if (selectedStocks.length > 0) {
+        history.push(`/view/?symbol=${selectedStocks.join()}`);
       } else {
         e.preventDefault();
         window.alert('Select at least one stock to view');
