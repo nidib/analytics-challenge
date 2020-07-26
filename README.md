@@ -1,7 +1,11 @@
 # Analytics Challenge
 A React app that displays stock prices and its charts.
 
-
+<p align="center">
+  Screenshots:
+  <img src="https://raw.githubusercontent.com/nidib/analytics-challenge/master/screenshot_home.png" alt="Preview">
+  <img src="https://raw.githubusercontent.com/nidib/analytics-challenge/master/screenshot_view.png" alt="Preview">
+</p>
 
 
 ## Installation Instructions
