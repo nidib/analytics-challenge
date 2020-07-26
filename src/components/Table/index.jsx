@@ -5,13 +5,14 @@ import TableHeader from './TableHeader';
 import TableItem from './TableItem';
 import Loading from '../Loading';
 
-import api from '../../services/api';
+import fetchData from '../../services/api';
 
 import './styles.css';
 
 const Table = () => {
   const [stockList, setStockList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [search, setSearch] = useState('');
   const [filteredStocks, setFilteredStocks] = useState([]);
   const [selectedStocks, setSelectedStocks] = useState([]);
@@ -39,16 +40,25 @@ const Table = () => {
   }
 
   useEffect(() => {
-    api.get(`company/stock/list?apikey=${process.env.REACT_APP_API_KEY}`)
-      .then((response) => {
-        if (response.data.symbolsList) {
-          setStockList(response.data.symbolsList);
-          setLoading(false);
+    async function getCompaniesFinancials() {
+      try {
+        const data = await fetchData(`https://financialmodelingprep.com/api/v3/company/stock/list?apikey=${process.env.REACT_APP_API_KEY}`);
+        if (data.symbolsList.length > 0) {
+          setStockList(data.symbolsList);
+          setError(false);
         } else {
-          setStockList([]);
-          setLoading(true);
+          console.log('Probably API key or wrong route');
+          setError(true);
         }
-      });
+      } catch (err) {
+        console.log('Could not fetch from API');
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    getCompaniesFinancials();
   }, []);
 
   function handleSelectedStockClick(e) {
@@ -68,6 +78,7 @@ const Table = () => {
     }));
   }, [search, stockList]);
 
+  if (error) return <p>There was an error...</p>;
   if (loading) return <Loading />;
 
   return (

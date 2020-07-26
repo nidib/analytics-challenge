@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import queryString from 'query-string';
 
-import Loading from '../../components/Loading';
 import Header from '../../components/Header';
 import CompanyTitle from '../../components/CompanyTitle';
 import RevenueChart from '../../components/Chart/RevenueChart';
@@ -9,12 +8,12 @@ import EbitdaChart from '../../components/Chart/EbitdaChart';
 import GeneralBalance from '../../components/Chart/GeneralBalance';
 import Footer from '../../components/Footer';
 
-import api from '../../services/api';
+import fetchData from '../../services/api';
 
 const View = () => {
   const [companiesToBeViewed, setCompaniesToBeViewed] = useState([]);
   const [companiesProfiles, setCompaniesProfiles] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   // Get params from url using keyword `symbol`
   const params = queryString.parse(window.location.search);
@@ -22,40 +21,56 @@ const View = () => {
   symbols = symbols.split(',').length === 1 ? `${symbols},` : symbols.split(',').join();
 
   useEffect(() => {
-    // Pulls charts data from API
-    api.get(`financials/income-statement/${symbols}?apikey=${process.env.REACT_APP_API_KEY}`)
-      .then(((response) => {
-        if (!(response.data['Error Message'])) {
-          setCompaniesToBeViewed(response.data.financialStatementList);
-          setLoading(false);
+    async function getCompaniesFinancials() {
+      try {
+        const data = await fetchData(`https://financialmodelingprep.com/api/v3/financials/income-statement/${symbols}?apikey=${process.env.REACT_APP_API_KEY}`);
+        if (data.financialStatementList.length > 0) {
+          setCompaniesToBeViewed(data.financialStatementList);
+          setError(false);
         } else {
-          setCompaniesToBeViewed([]);
-          setLoading(true);
+          console.log('Probably API key or wrong route');
+          setError(true);
         }
-      }));
+      } catch (err) {
+        console.log('Could not fetch from API');
+        setError(true);
+      }
+    }
+    async function geCompaniesProfiles() {
+      try {
+        const data = await fetchData(`https://financialmodelingprep.com/api/v3/profile/${symbols}?apikey=${process.env.REACT_APP_API_KEY}`);
+        if (data.length > 0) {
+          setCompaniesProfiles(data);
+        } else {
+          console.log('Probably API key or wrong route');
+          setCompaniesProfiles([]);
+        }
+      } catch (err) {
+        console.log('Could not fetch from API');
+      }
+    }
 
-    // Pulls companies data from API
-    api.get(`profile/${symbols}?apikey=${process.env.REACT_APP_API_KEY}`)
-      .then(((response) => {
-        if ((response.data)) {
-          setCompaniesProfiles(response.data);
-          setLoading(false);
-        } else {
-          setLoading(true);
-        }
-      }));
+    getCompaniesFinancials();
+    geCompaniesProfiles();
   }, []);
-
-  if (loading) return <Loading />;
 
   return (
     <>
       <Header />
       <main id="charts">
-        <CompanyTitle companiesProfiles={companiesProfiles} />
-        <RevenueChart companyStock={companiesToBeViewed} />
-        <EbitdaChart companyStock={companiesToBeViewed} />
-        <GeneralBalance companyStock={companiesToBeViewed} />
+        {
+          error && <p>Something is wrong...</p>
+        }
+        {
+          !error && (
+          <>
+            <CompanyTitle companiesProfiles={companiesProfiles} />
+            <RevenueChart companyStock={companiesToBeViewed} />
+            <EbitdaChart companyStock={companiesToBeViewed} />
+            <GeneralBalance companyStock={companiesToBeViewed} />
+          </>
+          )
+        }
       </main>
       <Footer />
     </>

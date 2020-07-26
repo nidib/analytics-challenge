@@ -1,7 +1,7 @@
-import axios from 'axios';
+async function fetchData(url) {
+  const response = await fetch(url);
+  const data = await response.json();
+  return data;
+}
 
-const api = axios.create({
-  baseURL: 'https://financialmodelingprep.com/api/v3/',
-});
-
-export default api;
+export default fetchData;
