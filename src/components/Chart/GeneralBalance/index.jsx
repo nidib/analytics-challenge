@@ -1,6 +1,5 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
-import numeral from 'numeral';
 import propTypes from 'prop-types';
 
 import Loading from '../../Loading';
@@ -10,6 +9,7 @@ import {
   pointStyles,
   chartHeight,
   commonToAllCharts,
+  formatToMoney,
 } from '../commonChartData';
 
 import {
@@ -91,7 +91,7 @@ const GeneralBalance = ({ companyStock }) => {
             tooltips: {
               callbacks: {
                 label(tooltipItem, mainData) {
-                  return `${mainData.datasets[tooltipItem.datasetIndex].label}: ${numeral(tooltipItem.value).format('$ 0,0')}`;
+                  return `${mainData.datasets[tooltipItem.datasetIndex].label}: ${formatToMoney(tooltipItem.value)}`;
                 },
               },
             },
@@ -127,7 +127,7 @@ const GeneralBalance = ({ companyStock }) => {
                   position: 'left',
                   ticks: {
                     callback(value) {
-                      return numeral(value).format('$ 0,0');
+                      return formatToMoney(value);
                     },
                   },
                 },

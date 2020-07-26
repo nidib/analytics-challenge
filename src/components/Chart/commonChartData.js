@@ -1,4 +1,6 @@
-import numeral from 'numeral';
+export function formatToMoney(number) {
+  return `$ ${parseFloat(number).toLocaleString('en-US', { type: 'currency', currency: 'USD' })}`;
+}
 
 export const lineColors = ['rgba(23, 207, 84, 1)', 'rgba(192, 79, 38, 1)', 'rgba(97, 14, 215, 1)'];
 export const barColors = ['rgba(23, 207, 84, .6)', 'rgba(192, 79, 38, .6)', 'rgba(97, 14, 215, .6)'];
@@ -20,7 +22,7 @@ export const revenueEbitdaChartOptions = {
     callbacks: {
       label(tooltipItem, mainData) {
         if (tooltipItem.datasetIndex >= (mainData.datasets.length / 2)) {
-          return `${mainData.datasets[tooltipItem.datasetIndex].label}: ${numeral(tooltipItem.value).format('$ 0,0')}`;
+          return `${mainData.datasets[tooltipItem.datasetIndex].label}: ${formatToMoney(tooltipItem.value)}`;
         }
         return `${mainData.datasets[tooltipItem.datasetIndex].label}: ${tooltipItem.value}%`;
       },

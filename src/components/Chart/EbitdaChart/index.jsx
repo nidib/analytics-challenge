@@ -1,11 +1,15 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
-import numeral from 'numeral';
 import propTypes from 'prop-types';
 
 import Loading from '../../Loading';
 
-import { barColors, lineColors, revenueEbitdaChartOptions } from '../commonChartData';
+import {
+  barColors,
+  lineColors,
+  revenueEbitdaChartOptions,
+  formatToMoney,
+} from '../commonChartData';
 
 import {
   getYears,
@@ -83,7 +87,7 @@ const EbitdaChart = ({ companyStock }) => {
                   position: 'left',
                   ticks: {
                     callback(value) {
-                      return numeral(value).format('$ 0,0');
+                      return `${formatToMoney(value)}`;
                     },
                   },
                 },
