@@ -1,4 +1,4 @@
-// FUncions form Revenue
+// Funcions form Revenue
 export function getRevenues(company, howMany) {
   const revenues = [];
   company.forEach((year, index) => {

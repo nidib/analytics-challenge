@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import queryString from 'query-string';
 
 import Header from '../../components/Header';
@@ -18,7 +19,9 @@ const View = () => {
   // Get params from url using keyword `symbol`
   const params = queryString.parse(window.location.search);
   let symbols = params.symbol;
-  symbols = symbols.split(',').length === 1 ? `${symbols},` : symbols.split(',').join();
+  if (symbols) {
+    symbols = symbols.split(',').length === 1 ? `${symbols},` : symbols.split(',').join();
+  }
 
   useEffect(() => {
     async function getCompaniesFinancials() {
@@ -59,7 +62,12 @@ const View = () => {
       <Header />
       <main id="charts">
         {
-          error && <p>Something is wrong...</p>
+          error && (
+          <>
+            <p>Something is wrong...</p>
+            <Link to="/">Go home</Link>
+          </>
+          )
         }
         {
           !error && (
