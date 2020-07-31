@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import queryString from 'query-string';
+import { Link, useLocation } from 'react-router-dom';
 
 import Header from '../../components/Header';
 import CompanyTitle from '../../components/CompanyTitle';
@@ -17,10 +16,12 @@ const View = () => {
   const [error, setError] = useState(false);
 
   // Get params from url using keyword `symbol`
-  const params = queryString.parse(window.location.search);
-  let symbols = params.symbol;
+  const location = useLocation();
+  let symbols = new URLSearchParams(location.search).get('symbol');
+  // Removes trailing comma when receiving more than one symbol (to prevent overload from API)
+  symbols = symbols.split(',').filter((symbol) => symbol).join();
   if (symbols) {
-    symbols = symbols.split(',').length === 1 ? `${symbols},` : symbols.split(',').join();
+    symbols = symbols.split(',').length === 1 ? `${symbols},` : symbols;
   }
 
   useEffect(() => {
