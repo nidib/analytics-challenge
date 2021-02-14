@@ -1,0 +1,7 @@
+{
+	"short_name": "Analytics Challenge",
+	"name": "Analytics challenge",
+	"icons": [],
+	"start_url": ".",
+	"display": "standalone"
+}
