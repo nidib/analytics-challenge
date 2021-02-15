@@ -1,0 +1,33 @@
+.table {
+	width: 100%;
+	margin: 0 auto;
+}
+
+.table, .table tr {
+	border: 1px solid var(--grey-dark);
+}
+
+.table,
+.table tr,
+.table th,
+.table td {
+	border-collapse: collapse;
+	text-align: left;
+}
+
+.table thead th,
+.table tbody td {
+	padding: 16px 32px;
+}
+
+.table thead {
+  background-color: var(--grey-lighter);
+}
+
+.table thead th {
+	cursor: pointer;
+}
+
+.table tbody tr:nth-of-type(even) {
+  background-color: var(--grey-dark);
+}

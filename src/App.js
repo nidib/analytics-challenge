@@ -1,12 +1,12 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
+import Routes from './Routes';
+import './app.css';
 
-class App extends PureComponent {
-	render() {
-		return (
-			<h1>Hello World</h1>
-		);
-	}
-}
+const App = () => {
+	return (
+		<Routes />
+	);
+};
 
 App.displayName = 'App';
 

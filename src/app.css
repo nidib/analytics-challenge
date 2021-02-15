@@ -1,0 +1,40 @@
+:root {
+	--grey-lighter: #E2E8EE;
+	--grey-light: #F9FAFC;
+	--grey-dark: #EFF2F7;
+	--grey-darkish: #8A929A;
+	--grey-darker: #47525D;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body, input, button {
+	font-family: sans-serif;
+	color: var(--grey-darker);
+}
+
+input[type="button"], input[type="checkbox"] {
+	cursor: pointer;
+	display: block;
+}
+
+input[type="button"]:disabled {
+	opacity: .4;
+	pointer-events: none;
+}
+
+#root {
+	width: 900px;
+	max-width: 100%;
+	margin: 0 auto;
+}
+
+.container {
+	width: 900px;
+	max-width: 100%;
+	margin: 0 auto;
+}
