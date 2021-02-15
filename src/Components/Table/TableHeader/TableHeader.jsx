@@ -36,7 +36,7 @@ class TableHeader extends PureComponent {
 	}
 }
 
-TableHeader.displayName = 'components/Table/TableHeader';
+TableHeader.displayName = 'Components/Table/TableHeader';
 
 TableHeader.propTypes = {
 	fields: PropTypes.arrayOf(PropTypes.shape({

@@ -20,7 +20,7 @@ class CColumn extends PureComponent {
 	}
 }
 
-CColumn.displayName = 'components/Charts/Column';
+CColumn.displayName = 'Components/Charts/Column';
 
 CColumn.propTypes = {
 	options: PropTypes.object.isRequired

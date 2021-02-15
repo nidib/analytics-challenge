@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import TableHeader from './TableHeader';
-import TableContent from './TableContent';
-import { dynamicSort } from '../../helpers/commonHelpers';
-import { table } from './styles.module.css';
+import TableHeader from './TableHeader/TableHeader';
+import TableContent from './TableContent/TableContent';
+import { dynamicSort } from '../../Helpers/commonHelpers';
+import { table } from './Table.module.css';
 
 class Table extends PureComponent {
 	constructor(props) {
@@ -77,7 +77,7 @@ class Table extends PureComponent {
 	}
 }
 
-Table.displayName = 'components/Table';
+Table.displayName = 'Components/Table';
 
 Table.propTypes = {
 	data: PropTypes.shape({

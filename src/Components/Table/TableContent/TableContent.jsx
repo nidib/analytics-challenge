@@ -71,7 +71,7 @@ class TableContent extends PureComponent {
 	}
 }
 
-TableContent.displayName = 'components/Table/TableContent';
+TableContent.displayName = 'Components/Table/TableContent';
 
 TableContent.propTypes = {
 	handleCheckbox: PropTypes.func.isRequired,

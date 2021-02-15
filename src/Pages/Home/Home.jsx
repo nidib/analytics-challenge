@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
-import Container from '../components/Layout/Container';
-import Search from '../components/Search';
-import Table from '../components/Table';
+import Container from 'Components/Layout/Container/Container';
+import Search from 'Components/Search/Search';
+import Table from 'Components/Table/Table';
 
 const data = {
 	fields: [
@@ -107,6 +107,6 @@ class Home extends PureComponent {
 	}
 }
 
-Home.displayName = 'pages/Home';
+Home.displayName = 'Pages/Home';
 
 export default Home;

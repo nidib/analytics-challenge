@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import { magnifier, search, searchBox } from './styles.module.css';
+import { magnifier, search, searchBox } from './Search.module.css';
 
 class Search extends PureComponent {
 	constructor(props) {
@@ -58,7 +58,7 @@ class Search extends PureComponent {
 	}
 }
 
-Search.displayName = 'components/Search';
+Search.displayName = 'Components/Search';
 
 Search.propTypes = {
 	placeholder: PropTypes.string.isRequired,

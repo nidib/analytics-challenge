@@ -23,7 +23,7 @@ class HighartsWrapper extends PureComponent {
 	}
 }
 
-HighartsWrapper.displayName = 'components/HichartsWrapper';
+HighartsWrapper.displayName = 'Components/HichartsWrapper';
 
 HighartsWrapper.propTypes = {
 	options: PropTypes.object.isRequired

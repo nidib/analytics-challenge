@@ -9,7 +9,7 @@ const Container = props => {
 	);
 };
 
-Container.displayName = 'components/Layout/Container';
+Container.displayName = 'Components/Layout/Container';
 
 Container.propTypes = {
 	children: PropTypes.oneOfType([

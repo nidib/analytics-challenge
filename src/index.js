@@ -1,12 +1,13 @@
 import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import Routes from 'Pages/Routes';
+import './index.css';
 
-const elementId = 'root';
+const App = () => <Routes />;
 
 ReactDOM.render(
 	<StrictMode>
 		<App />
 	</StrictMode>,
-	document.getElementById(elementId)
+	document.getElementById('root')
 );
