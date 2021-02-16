@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import TableHeader from './TableHeader/TableHeader';
-import TableContent from './TableContent/TableContent';
-import { dynamicSort } from '../../Helpers/commonHelpers';
+import TableHeader from 'Components/Table/TableHeader/TableHeader';
+import TableContent from 'Components/Table/TableContent/TableContent';
+import { dynamicSort } from 'Utils/helpers/commonHelpers';
 import { table } from './Table.module.css';
 
 class Table extends PureComponent {
