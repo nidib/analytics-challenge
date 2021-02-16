@@ -12,34 +12,13 @@ export const dynamicSort = property => {
 	};
 };
 
-/*
-compileContentWithFields() {
-		let companyData = {};
-		let compiledContent = [];
-		const { data } = this.props;
-		const content = data.content;
-		const relevantFields = data.fields.filter(field => field.columnName);
-		const getCompanyData = company => {
-			relevantFields.forEach((field, fieldValue) => {
-				const key = field.id;
-				const value = content[company][fieldValue]
+export const toggleAddToArray = (list, item) => {
+	let newList = [...list];
 
-				companyData = {
-					...companyData,
-					[key]: value
-				}
-			});
+	if (newList.includes(item))
+		newList.splice(newList.indexOf(item), 1);
+	else
+		newList.push(item);
 
-			return companyData;
-		}
-
-		for (let i = 0; i < content.length; i++) {
-			const company = i;
-			const currentCompanyData = getCompanyData(company);
-
-			compiledContent.push(currentCompanyData);
-		}
-
-		return compiledContent;
-	}
-*/
+	return newList;
+};

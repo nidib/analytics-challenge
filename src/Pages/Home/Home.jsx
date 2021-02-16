@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import Container from 'Components/Layout/Container/Container';
 import Search from 'Components/Search/Search';
 import Table from 'Components/Table/Table';
+import { toggleAddToArray } from 'Utils/helpers/commonHelpers';
 
 const data = {
 	fields: [
@@ -75,15 +76,10 @@ class Home extends PureComponent {
 	handleCheckbox({ target }) {
 		const { selectedItems } = this.state;
 		const { id } = target;
-		let currentList = [...selectedItems];
-
-		if (currentList.includes(id))
-			currentList.splice(currentList.indexOf(id), 1);
-		else
-			currentList.push(id);
+		const newList = toggleAddToArray(selectedItems, id);
 
 		this.setState({
-			selectedItems: currentList
+			selectedItems: newList
 		});
 	}
 

@@ -6,6 +6,7 @@
 		"@testing-library/jest-dom": "^5.11.4",
 		"@testing-library/react": "^11.1.0",
 		"@testing-library/user-event": "^12.1.10",
+		"chai": "^4.3.0",
 		"highcharts": "^9.0.0",
 		"highcharts-react-official": "^3.0.0",
 		"react": "^17.0.1",
@@ -18,7 +19,8 @@
 	"scripts": {
 		"dev": "react-scripts start",
 		"build": "rm -rf build/ && react-scripts build",
-		"test": "react-scripts test",
+		"tdd": "react-scripts test",
+		"test": "npm run tdd -- --coverage",
 		"eject": "react-scripts eject",
 		"lint": "npx eslint ./src --ext .js,.jsx"
 	},
@@ -41,9 +43,12 @@
 		]
 	},
 	"devDependencies": {
+		"@wojtekmaj/enzyme-adapter-react-17": "^0.4.1",
+		"enzyme": "^3.11.0",
 		"eslint": "^7.20.0",
 		"eslint-plugin-react": "^7.22.0",
 		"lodash": "^4.17.20",
-		"prop-types": "^15.7.2"
+		"prop-types": "^15.7.2",
+		"sinon": "^9.2.4"
 	}
 }

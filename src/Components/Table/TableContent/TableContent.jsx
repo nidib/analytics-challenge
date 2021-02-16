@@ -1,6 +1,5 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 
 class TableContent extends PureComponent {
 	constructor(props) {
@@ -83,4 +82,4 @@ TableContent.propTypes = {
 	history: PropTypes.object
 };
 
-export default withRouter(TableContent);
+export default TableContent;

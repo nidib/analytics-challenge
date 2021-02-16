@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 import { magnifier, search, searchBox } from './Search.module.css';
 
 class Search extends PureComponent {
@@ -24,10 +23,6 @@ class Search extends PureComponent {
 	}
 
 	handleClick() {
-		const { selectedItems, history } = this.props;
-
-		if (selectedItems.length > 0)
-			history.push(`/view/?s=${selectedItems.join()}`);
 	}
 
 	render() {
@@ -72,4 +67,4 @@ Search.defaultProps = {
 	initialValue: ''
 };
 
-export default withRouter(Search);
+export default Search;
