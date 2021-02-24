@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import fetch from 'node-fetch';
-import Container from 'Components/Layout/Container/Container';
-import ChartViewer from 'Components/Charts/ChartViewer/ChartViewer';
-import { financialStatementToList } from 'Utils/apiConverters/apiConverters';
-import { getURLParamValue } from 'Utils/helpers/commonHelpers';
+import Container from 'components/Layout/Container/Container';
+import ChartViewer from 'components/Charts/ChartViewer/ChartViewer';
+import { financialStatementToList } from 'utils/apiConverters/apiConverters';
+import { getURLParamValue } from 'utils/helpers/commonHelpers';
 
 class View extends PureComponent {
 	constructor(props) {

@@ -1,4 +1,4 @@
-import { symbolsList } from 'Utils/constants/api';
+import { symbolsList } from 'utils/constants/api';
 
 function list(req, res) {
 	res.status(200).json(symbolsList);

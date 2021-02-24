@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import CColumn from 'Components/Charts/CColumn/CColumn';
+import CColumn from 'components/Charts/CColumn/CColumn';
 
 class ChartViewer extends PureComponent {
 	constructor(props) {

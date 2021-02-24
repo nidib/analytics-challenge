@@ -1,4 +1,4 @@
-import { financialStatementToList } from 'Utils/apiConverters/apiConverters';
+import { financialStatementToList } from 'utils/apiConverters/apiConverters';
 import { expect } from 'chai';
 
 describe('apiConverters tests', () => {

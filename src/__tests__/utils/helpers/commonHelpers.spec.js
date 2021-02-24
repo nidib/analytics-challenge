@@ -1,4 +1,4 @@
-import { safeSortBy, toggleAddToArray } from 'Utils/helpers/commonHelpers';
+import { safeSortBy, toggleAddToArray } from 'utils/helpers/commonHelpers';
 import { expect } from 'chai';
 
 describe('commonHelpers tests', () => {

@@ -1,4 +1,4 @@
-import { financialStatementList } from 'Utils/constants/api';
+import { financialStatementList } from 'utils/constants/api';
 
 function multiple(req, res) {
 	res.status(200).json(financialStatementList);

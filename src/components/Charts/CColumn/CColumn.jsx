@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { merge } from 'lodash';
-import HighchartsWrapper from 'Components/Charts/HichartsWrapper/HighchartsWrapper';
+import HighchartsWrapper from 'components/Charts/HichartsWrapper/HighchartsWrapper';
 import CColumnTemplate from './CColumnTemplate';
 
 class CColumn extends PureComponent {
