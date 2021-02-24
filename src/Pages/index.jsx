@@ -1,5 +1,5 @@
 import React from 'react';
-import Home from 'Pages/_Home/Home';
+import Home from 'pages/_Home/Home';
 
 const Index = () => <Home />;
 

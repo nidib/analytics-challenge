@@ -1,5 +1,5 @@
 import React from 'react';
-import View from 'Pages/_View/View';
+import View from 'pages/_View/View';
 
 const Index = () => <View />;
 
