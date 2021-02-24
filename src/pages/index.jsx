@@ -1,6 +1,1 @@
-import React from 'react';
-import Home from 'pages/_Home/Home';
-
-const Index = () => <Home />;
-
-export default Index;
+export { default } from 'pages/_Home/Home';

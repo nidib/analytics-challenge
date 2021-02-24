@@ -1,6 +1,1 @@
-import React from 'react';
-import View from 'pages/_View/View';
-
-const Index = () => <View />;
-
-export default Index;
+export { default } from 'pages/_View/View';

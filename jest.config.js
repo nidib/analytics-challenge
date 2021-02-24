@@ -11,8 +11,8 @@ module.exports = {
 	],
 	collectCoverageFrom: [
 		'<rootDir>/src/**/*.{js,jsx}',
-		'!<rootDir>/src/Pages/api/*.js',
-		'!<rootDir>/src/Utils/constants/**/*.js',
-		'!<rootDir>/src/Pages/_app.jsx'
+		'!<rootDir>/src/pages/api/*.js',
+		'!<rootDir>/src/utils/constants/**/*.js',
+		'!<rootDir>/src/pages/_app.jsx'
 	]
 }
