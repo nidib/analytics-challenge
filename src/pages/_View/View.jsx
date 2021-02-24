@@ -36,7 +36,7 @@ class View extends PureComponent {
 	}
 
 	async fetchCompanies(companies) {
-		const urlWithParams = `${process.env.URL}/api/multiple?q=${companies}`;
+		const urlWithParams = `${window.location.origin}/api/multiple?q=${companies}`;
 		let data, response;
 
 		try {
