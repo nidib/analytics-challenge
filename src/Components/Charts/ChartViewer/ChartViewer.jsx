@@ -40,7 +40,7 @@ class ChartViewer extends PureComponent {
 	}
 
 	renderCharts(seriesConfig) {
-		const categories = this.categories;
+		const { categories } = this;
 
 		return seriesConfig.map((serieConfig, index) => {
 			const key = `${serieConfig.name}${index}${Math.random()}`;
@@ -48,7 +48,7 @@ class ChartViewer extends PureComponent {
 			const options = {
 				series,
 				xAxis: { categories },
-				yAxis: serieConfig.map(serie => ({ opposite: !serie.index ? false : true })).slice(0, 2)
+				yAxis: serieConfig.map(serie => ({ opposite: !!serie.index })).slice(0, 2)
 			};
 
 			return (
@@ -58,7 +58,6 @@ class ChartViewer extends PureComponent {
 				</div>
 			);
 		});
-
 	}
 
 	render() {
@@ -86,8 +85,7 @@ class ChartViewer extends PureComponent {
 ChartViewer.displayName = 'Components/Charts/ChartViewer';
 
 ChartViewer.propTypes = {
-	data: PropTypes.arrayOf(PropTypes.object),
-	infos: PropTypes.arrayOf(PropTypes.string)
+	data: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 export default ChartViewer;

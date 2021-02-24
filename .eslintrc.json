@@ -2,7 +2,7 @@
 	"env": {
 		"browser": true,
 		"es2020": true,
-		"jest/globals": true
+		"jest": true
 	},
 	"extends": [
 		"plugin:react/recommended",
@@ -19,13 +19,21 @@
 		"react"
 	],
 	"rules": {
-		"comma-dangle": "off",
 		"arrow-parens": "off",
+		"arrow-body-style": "off",
+		"comma-dangle": "off",
 		"eol-last": "off",
-		"no-tabs": "off",
 		"indent": ["error", "tab"],
+		"one-var": "off",
+		"one-var-declaration-per-line": "off",
+		"no-tabs": "off",
+		"no-underscore-dangle": "off",
 		"import/prefer-default-export": "off",
 		"import/no-unresolved": "off",
-		"react/jsx-props-no-spreading": "off"
+		"react/jsx-props-no-spreading": "off",
+		"react/jsx-indent-props": ["error", "tab"],
+		"react/forbid-prop-types": ["off"],
+		"react/jsx-indent": ["error", "tab"],
+		"jsx-quotes": ["error", "prefer-single"]
 	}
 }

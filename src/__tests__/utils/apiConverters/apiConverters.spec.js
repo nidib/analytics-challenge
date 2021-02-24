@@ -19,7 +19,7 @@ describe('apiConverters tests', () => {
 		it('should return undefined if none of the above occur', () => {
 			const objectData = {};
 
-			expect(financialStatementToList(objectData)).to.be.undefined;
+			expect(financialStatementToList(objectData)).to.be.equal(undefined);
 		});
 	});
 });

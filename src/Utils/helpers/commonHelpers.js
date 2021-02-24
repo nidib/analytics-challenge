@@ -1,7 +1,7 @@
-import { clone, cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash';
 
 export const _dynamicSort = (property, reverse) => {
-	let sortOrder = reverse ? -1 : 1;
+	const sortOrder = reverse ? -1 : 1;
 
 	return (a, b) => {
 		let result = 0;

@@ -27,7 +27,7 @@ const defaultTemplate = {
 			}
 		}
 	],
-	colors: ['#5D63AF', '#FF8B50', 'gray', 'black'],
+	colors: ['#5D63AF', '#28C2BB', '#F0746B', '#FFC433', '#3BAFDA', '#A0D468'],
 	credits: {
 		enabled: false
 	}

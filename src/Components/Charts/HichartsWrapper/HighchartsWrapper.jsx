@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { merge } from 'lodash';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import { merge } from 'lodash';
 import defaultTemplate from './HighchartsWrapperTemplate';
 
 class HighartsWrapper extends PureComponent {
@@ -11,6 +11,7 @@ class HighartsWrapper extends PureComponent {
 
 		return merge({}, defaultTemplate, options);
 	}
+
 	render() {
 		const options = this.getFinalOptions();
 
