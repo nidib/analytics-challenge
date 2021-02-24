@@ -33,3 +33,7 @@ export const toggleAddToArray = (list, item) => {
 
 	return newList;
 };
+
+export const getURLParamValue = (location, query) => {
+	return new URLSearchParams(location.search).get(query);
+};
