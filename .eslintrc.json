@@ -1,7 +1,8 @@
 {
 	"env": {
 		"browser": true,
-		"es2020": true
+		"es2020": true,
+		"jest/globals": true
 	},
 	"extends": [
 		"plugin:react/recommended",
@@ -19,9 +20,12 @@
 	],
 	"rules": {
 		"comma-dangle": "off",
+		"arrow-parens": "off",
 		"eol-last": "off",
 		"no-tabs": "off",
 		"indent": ["error", "tab"],
-		"import/no-unresolved": "off"
+		"import/prefer-default-export": "off",
+		"import/no-unresolved": "off",
+		"react/jsx-props-no-spreading": "off"
 	}
 }
