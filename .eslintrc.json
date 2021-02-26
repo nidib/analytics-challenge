@@ -21,6 +21,7 @@
 	"rules": {
 		"arrow-parens": "off",
 		"arrow-body-style": "off",
+		"class-methods-use-this": "off",
 		"comma-dangle": "off",
 		"eol-last": "off",
 		"indent": ["error", "tab"],

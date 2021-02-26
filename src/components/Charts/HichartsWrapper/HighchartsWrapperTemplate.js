@@ -1,5 +1,6 @@
 const defaultTemplate = {
 	chart: {
+		backgroundColor: 'transparent',
 		style: {
 			fontFamily: 'sans-serif'
 		}

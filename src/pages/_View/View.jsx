@@ -70,12 +70,12 @@ class View extends PureComponent {
 
 		return (
 			<Container>
-				<ChartViewer data={data} />
+				<ChartViewer companiesData={data} />
 			</Container>
 		);
 	}
 }
 
-View.displayName = 'Pages/View';
+View.displayName = 'pages/View';
 
 export default View;

@@ -1,6 +1,37 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import CColumn from 'components/Charts/CColumn/CColumn';
+import { COLUMN, LINE } from 'utils/constants/chartConstants';
+import styles from 'components/Charts/ChartViewer/ChartViewer.module.css';
+
+const viewSections = [
+	{
+		id: 0,
+		title: 'Revenue',
+		series: [
+			{ key: 'Revenue' },
+			{ key: 'Revenue Growth', index: 1, chartType: LINE }
+		]
+	},
+	{
+		id: 1,
+		title: 'EBITDA',
+		series: [
+			{ key: 'EBITDA' },
+			{ key: 'EBITDA Margin', index: 1, chartType: LINE }
+		]
+	},
+	{
+		id: 2,
+		title: 'General Balance',
+		series: [
+			{ key: 'Revenue', chartType: LINE },
+			{ key: 'EBITDA', chartType: LINE },
+			{ key: 'Operating Expenses', chartType: LINE },
+			{ key: 'Consolidated Income', chartType: LINE },
+		]
+	}
+];
 
 class ChartViewer extends PureComponent {
 	constructor(props) {
@@ -10,82 +41,81 @@ class ChartViewer extends PureComponent {
 	}
 
 	getCategories() {
-		const { data } = this.props;
-		const { financials } = data[0];
+		const { companiesData } = this.props;
+		const { financials } = companiesData[0];
 		const toYear = string => (new Date(string)).getFullYear();
 
 		return financials.map(year => toYear(year.date)).reverse();
 	}
 
-	getSeries(categories) {
-		const { data } = this.props;
+	getSeries(keys) {
+		const { companiesData } = this.props;
+		const series = [];
 
-		return data.map(company => {
-			return categories.map(category => {
-				return {
-					data: this.getChartData(company.symbol, category.name),
-					name: `${company.symbol} ${category.name}`,
-					type: category.type || 'column',
-					yAxis: category.index || 0
-				};
+		companiesData.forEach(({ symbol }) => {
+			keys.forEach(({ key, chartType, index }) => {
+				series.push({
+					data: this.getChartData(symbol, key),
+					name: `${symbol} ${key}`,
+					type: chartType || COLUMN,
+					yAxis: index || 0
+				});
 			});
-		}).flat();
+		});
+
+		return series;
 	}
 
 	getChartData(symbol, info) {
-		const { data } = this.props;
-		const { financials } = data.find(company => company.symbol === symbol);
+		const { companiesData } = this.props;
+		const { financials } = companiesData.find(company => company.symbol === symbol);
+		const possiblyPercentage = info.toLowerCase().includes('growth');
+		const converter = possiblyPercentage ? 100 : 1;
 
-		return financials.map(year => parseFloat(year[info], 10)).reverse();
+		return financials.map(year => {
+			return parseFloat((parseFloat(year[info]) * converter).toFixed(2));
+		}).reverse();
 	}
 
-	renderCharts(seriesConfig) {
-		const { categories } = this;
+	renderChartFromSection(section) {
+		const options = {
+			series: this.getSeries(section.series),
+			xAxis: { categories: this.categories },
+			yAxis: section.series.map(item => ({ opposite: !!item.index })).slice(0, 2)
+		};
 
-		return seriesConfig.map((serieConfig, index) => {
-			const key = `${serieConfig.name}${index}${Math.random()}`;
-			const series = this.getSeries(serieConfig);
-			const options = {
-				series,
-				xAxis: { categories },
-				yAxis: serieConfig.map(serie => ({ opposite: !!serie.index })).slice(0, 2)
-			};
+		return (
+			<div>
+				<CColumn options={options} />
+			</div>
+		);
+	}
 
-			return (
-				<div key={key}>
-					<h3>{serieConfig[0].name}</h3>
-					<CColumn options={options} />
-				</div>
-			);
-		});
+	renderSections(seriesConfig) {
+		const sections = seriesConfig;
+		const chartsSections = sections.map(section => (
+			<div className={styles.card} key={section.id}>
+				<h3>{section.title}</h3>
+				{ this.renderChartFromSection(section) }
+			</div>
+		));
+
+		return chartsSections;
 	}
 
 	render() {
-		const seriesConfig = [
-			[
-				{ name: 'Revenue' },
-				{ name: 'Revenue Growth', index: 1, type: 'line' }
-			],
-			[
-				{ name: 'EBITDA' },
-				{ name: 'EBITDA Margin', index: 1, type: 'line' }
-			],
-			[
-				{ name: 'Revenue', type: 'line' },
-				{ name: 'EBITDA', type: 'line' },
-				{ name: 'Operating Expenses', type: 'line' },
-				{ name: 'Consolidated Income', type: 'line' },
-			]
-		];
-
-		return this.renderCharts(seriesConfig);
+		return (
+			<div className={styles.chartViewer}>
+				{ this.renderSections(viewSections) }
+			</div>
+		);
 	}
 }
 
-ChartViewer.displayName = 'Components/Charts/ChartViewer';
+ChartViewer.displayName = 'components/Charts/ChartViewer';
 
 ChartViewer.propTypes = {
-	data: PropTypes.arrayOf(PropTypes.object).isRequired
+	companiesData: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 export default ChartViewer;
