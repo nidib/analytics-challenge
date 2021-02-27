@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import fetch from 'node-fetch';
 import Container from 'components/Layout/Container/Container';
 import ChartViewer from 'components/Charts/ChartViewer/ChartViewer';
+import Page from 'components/Page/Page';
 import { financialStatementToList } from 'utils/apiConverters/apiConverters';
 import viewSections from 'utils/constants/viewConstants';
 import { getURLParamValue } from 'utils/helpers/commonHelpers';
@@ -74,7 +75,7 @@ class View extends PureComponent {
 		return <ChartViewer companiesData={data} template={viewSections} />;
 	}
 
-	render() {
+	renderPageContent() {
 		const { data, fetchError, hasParams } = this.state;
 		let content = null;
 
@@ -88,6 +89,14 @@ class View extends PureComponent {
 			<Container>
 				{ content }
 			</Container>
+		);
+	}
+
+	render() {
+		return (
+			<Page title='View'>
+				{ this.renderPageContent() }
+			</Page>
 		);
 	}
 }
