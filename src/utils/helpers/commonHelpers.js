@@ -1,5 +1,3 @@
-import { cloneDeep } from 'lodash';
-
 export const _dynamicSort = (property, reverse) => {
 	const sortOrder = reverse ? -1 : 1;
 
@@ -14,24 +12,6 @@ export const _dynamicSort = (property, reverse) => {
 
 		return result * sortOrder;
 	};
-};
-
-export const safeSortBy = (list, property, reverse = false) => {
-	const newList = cloneDeep(list);
-
-	return newList.sort(_dynamicSort(property, reverse));
-};
-
-export const toggleAddToArray = (list, item) => {
-	const newList = cloneDeep(list);
-
-	if (newList.includes(item)) {
-		newList.splice(newList.indexOf(item), 1);
-	} else {
-		newList.push(item);
-	}
-
-	return newList;
 };
 
 export const getURLParamValue = (location, query) => {

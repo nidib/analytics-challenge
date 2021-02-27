@@ -1,37 +1,10 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import CColumn from 'components/Charts/CColumn/CColumn';
-import { COLUMN, LINE } from 'utils/constants/chartConstants';
 import styles from 'components/Charts/ChartViewer/ChartViewer.module.css';
-
-const viewSections = [
-	{
-		id: 0,
-		title: 'Revenue',
-		series: [
-			{ key: 'Revenue' },
-			{ key: 'Revenue Growth', index: 1, chartType: LINE }
-		]
-	},
-	{
-		id: 1,
-		title: 'EBITDA',
-		series: [
-			{ key: 'EBITDA' },
-			{ key: 'EBITDA Margin', index: 1, chartType: LINE }
-		]
-	},
-	{
-		id: 2,
-		title: 'General Balance',
-		series: [
-			{ key: 'Revenue', chartType: LINE },
-			{ key: 'EBITDA', chartType: LINE },
-			{ key: 'Operating Expenses', chartType: LINE },
-			{ key: 'Consolidated Income', chartType: LINE },
-		]
-	}
-];
+import allChartTypes, { COLUMN } from 'utils/constants/chartConstants';
+import { safeReverse } from 'utils/helpers/arrayHelpers';
+import { stringToDate } from 'utils/helpers/dateHelpers';
 
 class ChartViewer extends PureComponent {
 	constructor(props) {
@@ -42,10 +15,13 @@ class ChartViewer extends PureComponent {
 
 	getCategories() {
 		const { companiesData } = this.props;
-		const { financials } = companiesData[0];
-		const toYear = string => (new Date(string)).getFullYear();
+		const companiesDataLength = companiesData.map(company => company.financials.length);
+		const indexOfLongest = companiesDataLength.indexOf(Math.max(...companiesDataLength));
+		const categories = companiesData[indexOfLongest].financials.map(year => {
+			return stringToDate(year.date).getFullYear();
+		});
 
-		return financials.map(year => toYear(year.date)).reverse();
+		return safeReverse(categories);
 	}
 
 	getSeries(keys) {
@@ -69,12 +45,15 @@ class ChartViewer extends PureComponent {
 	getChartData(symbol, info) {
 		const { companiesData } = this.props;
 		const { financials } = companiesData.find(company => company.symbol === symbol);
-		const possiblyPercentage = info.toLowerCase().includes('growth');
-		const converter = possiblyPercentage ? 100 : 1;
+		const data = this.categories.map(year => {
+			const allDataFromYear = financials.find(({ date }) => stringToDate(date).getFullYear() === year);
+			const hasData = allDataFromYear !== undefined;
+			const chosenDataInfo = hasData ? parseFloat(allDataFromYear[info]) : 0;
 
-		return financials.map(year => {
-			return parseFloat((parseFloat(year[info]) * converter).toFixed(2));
-		}).reverse();
+			return chosenDataInfo;
+		});
+
+		return data;
 	}
 
 	renderChartFromSection(section) {
@@ -104,9 +83,11 @@ class ChartViewer extends PureComponent {
 	}
 
 	render() {
+		const { template } = this.props;
+
 		return (
 			<div className={styles.chartViewer}>
-				{ this.renderSections(viewSections) }
+				{ this.renderSections(template) }
 			</div>
 		);
 	}
@@ -115,7 +96,16 @@ class ChartViewer extends PureComponent {
 ChartViewer.displayName = 'components/Charts/ChartViewer';
 
 ChartViewer.propTypes = {
-	companiesData: PropTypes.arrayOf(PropTypes.object).isRequired
+	companiesData: PropTypes.arrayOf(PropTypes.object).isRequired,
+	template: PropTypes.arrayOf(PropTypes.shape({
+		id: PropTypes.number.isRequired,
+		title: PropTypes.string,
+		series: PropTypes.arrayOf(PropTypes.shape({
+			key: PropTypes.string.isRequired,
+			index: PropTypes.oneOf([0, 1]),
+			chartType: PropTypes.oneOf(allChartTypes)
+		})).isRequired
+	})).isRequired
 };
 
 export default ChartViewer;
