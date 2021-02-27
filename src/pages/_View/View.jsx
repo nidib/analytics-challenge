@@ -3,6 +3,7 @@ import fetch from 'node-fetch';
 import Container from 'components/Layout/Container/Container';
 import ChartViewer from 'components/Charts/ChartViewer/ChartViewer';
 import { financialStatementToList } from 'utils/apiConverters/apiConverters';
+import viewSections from 'utils/constants/viewConstants';
 import { getURLParamValue } from 'utils/helpers/commonHelpers';
 
 class View extends PureComponent {
@@ -49,28 +50,43 @@ class View extends PureComponent {
 		}
 	}
 
-	render() {
+	renderErrorMessage() {
 		const { data, fetchError, hasParams } = this.state;
 
 		if (fetchError) {
-			return (
-				<Container>
-					<p>Something went wrong...</p>
-				</Container>
-			);
+			return <p>Something went wrong...</p>;
 		}
 
 		if (!hasParams || !data) {
-			return (
-				<Container>
-					<p>Loading...</p>
-				</Container>
-			);
+			return <p>Loading...</p>;
+		}
+
+		if (!data.length) {
+			return <p>Could not find what you are looking for</p>;
+		}
+
+		return null;
+	}
+
+	renderChartViewer() {
+		const { data } = this.state;
+
+		return <ChartViewer companiesData={data} template={viewSections} />;
+	}
+
+	render() {
+		const { data, fetchError, hasParams } = this.state;
+		let content = null;
+
+		if (!data || !data.length || fetchError || !hasParams) {
+			content = this.renderErrorMessage();
+		} else {
+			content = this.renderChartViewer();
 		}
 
 		return (
 			<Container>
-				<ChartViewer companiesData={data} />
+				{ content }
 			</Container>
 		);
 	}

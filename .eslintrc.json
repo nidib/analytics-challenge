@@ -25,6 +25,7 @@
 		"comma-dangle": "off",
 		"eol-last": "off",
 		"indent": ["error", "tab"],
+		"max-len": ["error", { "code": 150, "tabWidth": 4 }],
 		"one-var": "off",
 		"one-var-declaration-per-line": "off",
 		"no-tabs": "off",
