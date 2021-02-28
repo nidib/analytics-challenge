@@ -1,25 +1,62 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import DeleteButton from 'components/Buttons/DeleteButton/DeleteButton';
 import CColumn from 'components/Charts/CColumn/CColumn';
+import Card from 'components/Card/Card';
 import styles from 'components/Charts/ChartViewer/ChartViewer.module.css';
-import allChartTypes, { COLUMN } from 'utils/constants/chartConstants';
-import { safeReverse } from 'utils/helpers/arrayHelpers';
+import Header from 'components/Header/Header';
+import allChartTypes, { AREA, COLUMN } from 'utils/constants/chartConstants';
+import { safeReverse, safeSplice } from 'utils/helpers/arrayHelpers';
 import { stringToDate } from 'utils/helpers/dateHelpers';
+import Button from 'components/Buttons/_Button/Button';
 
 class ChartViewer extends PureComponent {
 	constructor(props) {
 		super(props);
 
 		this.categories = this.getCategories();
+		this.handleAddButtonClick = this.handleAddButtonClick.bind(this);
+		this.handleDeleteClick = this.handleDeleteClick.bind(this);
+
+		this.state = {
+			template: props.template
+		};
+	}
+
+	handleAddButtonClick() {
+		this.setState(prevState => ({
+			template: [
+				...prevState.template,
+				{
+					id: Number(new Date()).toString(36),
+					title: String(Math.random()),
+					series: [
+						{ key: 'Free Cash Flow margin', chartType: AREA }
+					]
+				}
+			]
+		}), () => {
+			window.scrollTo({
+				top: document.body.offsetHeight,
+				behavior: 'smooth'
+			});
+		});
+	}
+
+	handleDeleteClick(e) {
+		const { template } = this.state;
+		const clickedItemIndex = template.findIndex(item => String(item.id) === String(e.currentTarget.id));
+		const newList = safeSplice(template, clickedItemIndex, 1);
+
+		this.setState({ template: newList });
 	}
 
 	getCategories() {
 		const { companiesData } = this.props;
 		const companiesDataLength = companiesData.map(company => company.financials.length);
 		const indexOfLongest = companiesDataLength.indexOf(Math.max(...companiesDataLength));
-		const categories = companiesData[indexOfLongest].financials.map(year => {
-			return stringToDate(year.date).getFullYear();
-		});
+		const companyWithLongesDateRecord = companiesData[indexOfLongest];
+		const categories = companyWithLongesDateRecord.financials.map(year => stringToDate(year.date).getFullYear());
 
 		return safeReverse(categories);
 	}
@@ -63,31 +100,35 @@ class ChartViewer extends PureComponent {
 			yAxis: section.series.map(item => ({ opposite: !!item.index })).slice(0, 2)
 		};
 
-		return (
-			<div>
-				<CColumn options={options} />
-			</div>
-		);
+		return <CColumn options={options} />;
 	}
 
-	renderSections(seriesConfig) {
-		const sections = seriesConfig;
+	renderSections() {
+		const { template: sections } = this.state;
 		const chartsSections = sections.map(section => (
-			<div className={styles.card} key={section.id}>
-				<h3>{section.title}</h3>
+			<Card className={styles.card} key={section.id}>
+				<DeleteButton id={section.id} title='Delete card' onClick={this.handleDeleteClick} />
+				<Header title={section.title} />
 				{ this.renderChartFromSection(section) }
-			</div>
+			</Card>
 		));
 
 		return chartsSections;
 	}
 
-	render() {
-		const { template } = this.props;
+	renderAddButton() {
+		return (
+			<div>
+				<Button value='Add' onClick={this.handleAddButtonClick} />
+			</div>
+		);
+	}
 
+	render() {
 		return (
 			<div className={styles.chartViewer}>
-				{ this.renderSections(template) }
+				{ this.renderSections() }
+				{ this.renderAddButton() }
 			</div>
 		);
 	}

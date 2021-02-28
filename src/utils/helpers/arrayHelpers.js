@@ -13,6 +13,14 @@ export const safeSortBy = (list, property, reverse = false) => {
 	return newList.sort(dynamicSort(property, reverse));
 };
 
+export const safeSplice = (list, from, howMany) => {
+	const newList = cloneDeep(list);
+
+	newList.splice(from, howMany);
+
+	return newList;
+};
+
 export const toggleAddToArray = (list, item) => {
 	const newList = cloneDeep(list);
 

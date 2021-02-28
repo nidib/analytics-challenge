@@ -1,0 +1,28 @@
+@keyframes fromLeft {
+	to {
+		opacity: initial;
+		transform: initial;
+	}
+}
+
+.card {
+	position: relative;
+	padding: 30px 30px;
+	border-radius: 10px;
+	box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+	background-color: rgba(255, 255, 255, 0.4);
+	transform: translateX(-200px);
+	opacity: 0.5;
+	animation: fromLeft 400ms ease forwards
+}
+
+.card h2 {
+	font-weight: normal;
+	font-size: 26px;
+	color: #2c2c2c;
+	margin-bottom: 30px;
+}
+
+.card:not(:last-of-type) {
+	margin-bottom: 50px;
+}
