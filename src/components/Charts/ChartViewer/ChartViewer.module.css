@@ -1,31 +1,3 @@
-@keyframes fromLeft {
-	to {
-		opacity: initial;
-		transform: initial;
-	}
-}
-
 .chartViewer {
 	padding: 60px 0;
-}
-
-.card {
-	padding: 45px;
-	border-radius: 6px;
-	box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
-	background-color: rgba(255, 255, 255, 0.4);
-	transform: translateX(-200px);
-	opacity: 0.5;
-	animation: fromLeft 400ms ease forwards
-}
-
-.card h3 {
-	margin-bottom: 20px;
-	text-align: center;
-	color: #2c2c2c;
-	font-weight: normal;
-}
-
-.card:not(:last-of-type) {
-	margin-bottom: 50px;
 }

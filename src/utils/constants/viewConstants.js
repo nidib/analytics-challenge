@@ -1,4 +1,4 @@
-import { AREA, COLUMN, LINE } from 'utils/constants/chartConstants';
+import { LINE } from 'utils/constants/chartConstants';
 
 export default [
 	{
@@ -25,20 +25,6 @@ export default [
 			{ key: 'EBITDA', chartType: LINE },
 			{ key: 'Operating Expenses', chartType: LINE },
 			{ key: 'Consolidated Income', chartType: LINE },
-		]
-	},
-	{
-		id: 3,
-		title: 'Free cash flow margin',
-		series: [
-			{ key: 'Free Cash Flow margin', chartType: AREA }
-		]
-	},
-	{
-		id: 4,
-		title: 'EPS',
-		series: [
-			{ key: 'EPS', chartType: COLUMN }
 		]
 	}
 ];

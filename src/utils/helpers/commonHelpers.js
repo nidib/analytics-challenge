@@ -17,3 +17,5 @@ export const _dynamicSort = (property, reverse) => {
 export const getURLParamValue = (location, query) => {
 	return new URLSearchParams(location.search).get(query);
 };
+
+export const emptyFunction = () => {};
