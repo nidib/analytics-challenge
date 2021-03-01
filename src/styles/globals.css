@@ -21,6 +21,10 @@ img {
 	display: block;
 }
 
+ul, li {
+	list-style: none;
+}
+
 .container {
 	width: 900px;
 	max-width: 90%;

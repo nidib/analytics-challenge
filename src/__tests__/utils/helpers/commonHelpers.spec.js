@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { getURLParamValue } from 'utils/helpers/commonHelpers';
+import { getURLParamValue, hash } from 'utils/helpers/commonHelpers';
 
 describe('commonHelpers tests', () => {
 	describe('getURLParamValue tests', () => {
@@ -7,6 +7,12 @@ describe('commonHelpers tests', () => {
 			const window = { location: { search: '?q=AAPL,GOOGL' } };
 
 			expect(getURLParamValue(window.location, 'q')).to.be.equal('AAPL,GOOGL');
+		});
+	});
+
+	describe('hash tests', () => {
+		it('should return an 8-digit random string', () => {
+			expect(hash().length).to.be.equal(8);
 		});
 	});
 });

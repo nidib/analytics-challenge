@@ -1,10 +1,9 @@
 import React, { PureComponent } from 'react';
 import fetch from 'node-fetch';
+import CardList from 'components/CardList/CardList';
 import Container from 'components/Layout/Container/Container';
-import ChartViewer from 'components/Charts/ChartViewer/ChartViewer';
 import Page from 'components/Page/Page';
 import { financialStatementToList } from 'utils/apiConverters/apiConverters';
-import viewSections from 'utils/constants/viewConstants';
 import { getURLParamValue } from 'utils/helpers/commonHelpers';
 
 class View extends PureComponent {
@@ -72,7 +71,7 @@ class View extends PureComponent {
 	renderChartViewer() {
 		const { data } = this.state;
 
-		return <ChartViewer companiesData={data} template={viewSections} />;
+		return <CardList list={data} />;
 	}
 
 	renderPageContent() {

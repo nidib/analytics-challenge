@@ -1,20 +1,16 @@
-.deleteButton {
-	position: absolute;
-	top: 0;
-	right: 0;
+.iconButton {
 	background-color: transparent;
 	display: block;
-	margin: 30px 30px 0 0;
 	border: none;
 }
 
-.deleteButton svg {
+.iconButton svg {
 	width: 28px;
 	height: 28px;
 	transition: fill 300ms ease;
 	fill: rgba(0, 0, 0, .5);
 }
 
-.deleteButton svg:hover {
+.iconButton svg:hover {
 	fill: rgba(0, 0, 0, .8);
 }

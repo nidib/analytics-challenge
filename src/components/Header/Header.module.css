@@ -1,0 +1,23 @@
+.header {
+	margin-bottom: 16px;
+}
+
+.header h2,
+.header h3 {
+	font-weight: normal;
+	color: #2c2c2c;
+}
+
+.header h2 {
+	font-size: 26px;
+	margin-bottom: 8px;
+}
+
+.header h3 {
+	font-size: 24px;
+}
+
+.header hr {
+	margin-top: 16px;
+	border: 1px solid rgba(0, 0, 0, .05);
+}
