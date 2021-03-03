@@ -52,20 +52,17 @@ class View extends PureComponent {
 
 	renderErrorMessage() {
 		const { data, fetchError, hasParams } = this.state;
+		let error = null;
 
 		if (fetchError) {
-			return <p>Something went wrong...</p>;
+			error = 'Something went wrong...';
+		} else if (!hasParams || !data) {
+			error = 'Loading...';
+		} else if (!data.length) {
+			error = 'Could not find what you are looking for';
 		}
 
-		if (!hasParams || !data) {
-			return <p>Loading...</p>;
-		}
-
-		if (!data.length) {
-			return <p>Could not find what you are looking for</p>;
-		}
-
-		return null;
+		return error ? <p>{ error }</p> : error;
 	}
 
 	renderChartViewer() {

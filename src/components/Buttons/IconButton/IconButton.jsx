@@ -4,7 +4,9 @@ import Button from 'components/Buttons/_Button/Button';
 import { emptyFunction } from 'utils/helpers/commonHelpers';
 import styles from 'components/Buttons/IconButton/IconButton.module.css';
 
-const IconButton = ({ icon, ...genericButtonProps }) => {
+const IconButton = props => {
+	const { icon, ...genericButtonProps } = props;
+
 	return (
 		<Button
 			className={styles.iconButton}
