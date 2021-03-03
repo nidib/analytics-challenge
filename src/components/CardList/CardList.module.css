@@ -1,0 +1,18 @@
+.cardListContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 48px 0;
+}
+
+.cardList {
+	margin-bottom: 48px;
+}
+
+.cardList li:not(:last-of-type) {
+	margin-bottom: 48px;
+}
+
+.addButtonContainer button {
+	margin: 0 auto;
+}

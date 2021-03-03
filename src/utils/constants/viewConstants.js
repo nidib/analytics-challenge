@@ -2,7 +2,7 @@ import { LINE } from 'utils/constants/chartConstants';
 
 export default [
 	{
-		id: 0,
+		oid: 'klpbcf8k',
 		title: 'Revenue',
 		series: [
 			{ key: 'Revenue' },
@@ -10,15 +10,16 @@ export default [
 		]
 	},
 	{
-		id: 1,
+		oid: 'klpbd5vj',
 		title: 'EBITDA',
+		subtitle: 'sub ebitda',
 		series: [
 			{ key: 'EBITDA' },
 			{ key: 'EBITDA Margin', index: 1, chartType: LINE }
 		]
 	},
 	{
-		id: 2,
+		oid: 'klpbdo7v',
 		title: 'General Balance',
 		series: [
 			{ key: 'Revenue', chartType: LINE },

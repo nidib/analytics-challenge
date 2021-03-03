@@ -1,10 +1,9 @@
 import React, { PureComponent } from 'react';
 import fetch from 'node-fetch';
+import CardList from 'components/CardList/CardList';
 import Container from 'components/Layout/Container/Container';
-import ChartViewer from 'components/Charts/ChartViewer/ChartViewer';
 import Page from 'components/Page/Page';
 import { financialStatementToList } from 'utils/apiConverters/apiConverters';
-import viewSections from 'utils/constants/viewConstants';
 import { getURLParamValue } from 'utils/helpers/commonHelpers';
 
 class View extends PureComponent {
@@ -53,26 +52,23 @@ class View extends PureComponent {
 
 	renderErrorMessage() {
 		const { data, fetchError, hasParams } = this.state;
+		let error = null;
 
 		if (fetchError) {
-			return <p>Something went wrong...</p>;
+			error = 'Something went wrong...';
+		} else if (!hasParams || !data) {
+			error = 'Loading...';
+		} else if (!data.length) {
+			error = 'Could not find what you are looking for';
 		}
 
-		if (!hasParams || !data) {
-			return <p>Loading...</p>;
-		}
-
-		if (!data.length) {
-			return <p>Could not find what you are looking for</p>;
-		}
-
-		return null;
+		return error ? <p>{ error }</p> : error;
 	}
 
 	renderChartViewer() {
 		const { data } = this.state;
 
-		return <ChartViewer companiesData={data} template={viewSections} />;
+		return <CardList list={data} />;
 	}
 
 	renderPageContent() {
